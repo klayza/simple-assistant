@@ -25,11 +25,20 @@ Make sure to rename .env.example -> .env
 ## Features
 - Tools - run commands
 - Scheduling - make things happen on a regular schedule
+- AI - run commands via natural language
 
 
 ## Coming Soon
-- Natural language texting 
 - Data driven tools
+- Public tool repository?
+- Note tool
+- Easier scheduling
+
+
+## Included Tools
+- Spotify - find spotify playlists
+- Quotes - get inspirational quotes
+
 
 
 ## Inspiration
