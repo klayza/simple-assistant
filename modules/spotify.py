@@ -35,3 +35,7 @@ def find_playlist(query):
         return f"{playlist_name}: {playlist_url}"
     else:
         return {"error": "No playlist found for the query"}
+
+
+if __name__ == "__main__":
+    print(find_playlist("Beastars OST"))

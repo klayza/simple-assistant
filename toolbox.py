@@ -74,7 +74,7 @@ class FindSpotifyPlaylist:
             "required": ["query"],
         }
     def get_playlist(self, query):
-        find_playlist(query)
+        return find_playlist(query)
 
 
 # @Tool 
