@@ -32,6 +32,7 @@ def find_playlist(query):
         playlist = data["playlists"]["items"][0]
         playlist_name = playlist["name"]
         playlist_url = playlist["external_urls"]["spotify"]
+        # playlist_url = playlist_url.replace("https://open.spotify.com/", "spotify://")
         return f"{playlist_name}: {playlist_url}"
     else:
         return {"error": "No playlist found for the query"}

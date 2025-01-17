@@ -77,6 +77,30 @@ class FindSpotifyPlaylist:
         return find_playlist(query)
 
 
+@Tool 
+class MarkDailyTaskComplete:
+    def __init__(self):
+        self.func = self.completed
+        self.schema = {
+            "name": "MarkDailyTaskComplete",
+            "description": "Completes the user's daily task",
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "done": {
+                        "type": "boolean",
+                        "description": "Whether or not the user completed their daily task. Only true if they said they have done it.",
+                    }
+                },
+            },
+            "required": ["done"],
+        }
+    def completed(self, done):
+        from modules.manager import mark_done
+        return mark_done()
+    
+
+# EXAMPLE
 # @Tool 
 class CompleteTask:
     def __init__(self):

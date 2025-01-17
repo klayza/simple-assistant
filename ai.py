@@ -1,7 +1,7 @@
 import json
 import os
 from openai import OpenAI
-import toolbox
+import toolbox 
 from dotenv import load_dotenv
 
 
@@ -36,18 +36,38 @@ def save_json(file_path, data):
 def clear_history():
     save_json("data/history.json", [])
 
-def prepare_messages(message):
+def prepare_messages(message, role="user", include_history=True):
+    messages = []
     ai_data = load_json('data/ai.json')
-    history = load_json('data/history.json')
     
-    messages = [
-        # {"role": "system", "content": "You are a helpful assistant"},
-        {"role": "system", "content": ai_data.get('system_prompt', '')},
-        {"role": "assistant", "content": ai_data.get('character_prompt', '')},
-    ]
-    messages.extend(history)
-    messages.append({"role": "user", "content": message})
+    messages.append({"role": "system", "content": ai_data.get('system_prompt', '')})
+    messages.append({"role": "assistant", "content": ai_data.get('character_prompt', '')})
+    
+    if include_history:
+        history = load_json('data/history.json')
+        messages.extend(history)
+
+    messages.append({"role": role, "content": message})
     return messages
+
+
+def plain_ai_response(message, role="user"):
+    messages = prepare_messages(message, role=role, include_history=False)
+    
+    completion_args = {
+    "model": OPENAI_MODEL,
+    "messages": messages,
+    "temperature": 1,
+    "frequency_penalty": 0.7,
+    "presence_penalty": 0,
+    "top_p": 1,
+    }
+    
+    response = client.chat.completions.create(**completion_args)
+    message = response.choices[0].message.content
+    return message
+
+
 
 def get_ai_response(messages):
     available_tools = toolbox.get_available_tools()
